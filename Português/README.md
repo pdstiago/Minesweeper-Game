@@ -1,3 +1,3 @@
 ## Jogo em Português
 
-"ganhou.txt", "perdeu.txt" and "titulo.txt" are files that "campominado.c" will open, so they have to be downloaded and stored in the same path!
+"ganhou.txt", "perdeu.txt" e "titulo.txt" são arquivos que "campominado.c" irá abrir durante a execução, então eles precisam ser baixados e armazenados na mesma pasta!
