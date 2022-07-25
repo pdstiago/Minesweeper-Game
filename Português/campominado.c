@@ -916,11 +916,15 @@ int main(){
                 #endif
 
                 textoTitulo();
-                printf("\n\nLeaderboard Campo Minado Fácil\n\n");
-                for(i=0; i<mini(numPessoas1, 5); i++){
-                    printf("%d. ", i+1);
-                    printf("%s\n", pessoas1[i].nome);
-                    printf("%d minuto(s) e %d segundo(s)\n\n", pessoas1[i].min, pessoas1[i].seg);
+                printf("\n\n=============================== Leaderboard Campo Minado Fácil ===============================\n\n");
+                if(numPessoas1==0){
+                    printf("Nenhum usuário ganhou o jogo no nível Fácil!\n");
+                }else{
+                    for(i=0; i<mini(numPessoas1, 5); i++){
+                        printf("%d. ", i+1);
+                        printf("%s\n", pessoas1[i].nome);
+                        printf("%d minuto(s) e %d segundo(s)\n\n", pessoas1[i].min, pessoas1[i].seg);
+                    }
                 }
                 printf("\nEnter para continuar >>");
                 fflush(stdin);
@@ -934,11 +938,15 @@ int main(){
                 #endif
 
                 textoTitulo();
-                printf("\n\nLeaderboard Campo Minado Médio\n\n");
-                for(i=0; i<mini(numPessoas2, 5); i++){
-                    printf("%d. ", i+1);
-                    printf("%s\n", pessoas2[i].nome);
-                    printf("%d minuto(s) e %d segundo(s)\n\n", pessoas2[i].min, pessoas2[i].seg);
+                printf("\n\n=============================== Leaderboard Campo Minado Médio ===============================\n\n");
+                if(numPessoas2==0){
+                    printf("Nenhum usuário ganhou o jogo no nível Médio!\n");
+                }else{
+                    for(i=0; i<mini(numPessoas2, 5); i++){
+                        printf("%d. ", i+1);
+                        printf("%s\n", pessoas2[i].nome);
+                        printf("%d minuto(s) e %d segundo(s)\n\n", pessoas2[i].min, pessoas2[i].seg);
+                    }
                 }
                 printf("\nEnter para continuar >>");
                 fflush(stdin);
@@ -952,11 +960,15 @@ int main(){
                 #endif
 
                 textoTitulo();
-                printf("\n\nLeaderboard Campo Minado Difícil\n\n");
-                for(i=0; i<mini(numPessoas3, 5); i++){
-                    printf("%d. ", i+1);
-                    printf("%s\n", pessoas3[i].nome);
-                    printf("%d minuto(s) e %d segundo(s)\n\n", pessoas3[i].min, pessoas3[i].seg);
+                printf("\n\n=============================== Leaderboard Campo Minado Difícil ===============================\n\n");
+                if(numPessoas3==0){
+                    printf("Nenhum usuário ganhou o jogo no nível Difícil!\n");
+                }else{
+                    for(i=0; i<mini(numPessoas3, 5); i++){
+                        printf("%d. ", i+1);
+                        printf("%s\n", pessoas3[i].nome);
+                        printf("%d minuto(s) e %d segundo(s)\n\n", pessoas3[i].min, pessoas3[i].seg);
+                    }
                 }
                 printf("\nEnter para continuar >>");
                 fflush(stdin);
