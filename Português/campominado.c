@@ -11,6 +11,9 @@
 #define ANSI_COLOR_RED     	"\x1b[31m" 
 #define ANSI_COLOR_YELLOW  "\x1b[33m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
+#define ANSI_COLOR_PURPLE  "\x1b[35m"
+#define ANSI_COLOR_GREEN  "\x1b[32m"
+#define ANSI_COLOR_CYAN  "\x1b[36m"
 
 typedef struct{
     int mina, minasvizinhas, estado, flag;
@@ -32,7 +35,8 @@ int mini(int x, int y){
 }
 
 int valido(int x, int y) {
-    if (x > linhas || y > colunas || x < 0 || y < 0) {
+    if(x==0 && y==0) return 1;
+    if (x > linhas || y > colunas || x < 1 || y < 1) {
         printf("\nCoordenada inválida, a linha deve estar entre 1 e %d, e a coluna deve estar entre 1 e %d!\n", linhas, colunas);
         return 0;
     }
@@ -195,7 +199,6 @@ void imprimirTabuleiro(int cont, int difi){
     for(i=1; i<=colunas; i++){
         if(i<=9) printf("   %d", i);
         else printf("  %d", i);
-        if(i==9) printf("");
         if(i==colunas) printf("\n");
     }
     printf("   |");
@@ -214,10 +217,18 @@ void imprimirTabuleiro(int cont, int difi){
         for(j=1; j<=colunas; j++){
             if(i<=9 && j==1) printf(" ");
             if(tabuleiro[i][j].flag){
-                printf("| ! ");
+                printf("|");
+                printf(ANSI_COLOR_RED " ! " ANSI_COLOR_RESET);
             }else if(tabuleiro[i][j].estado){
-                if(tabuleiro[i][j].minasvizinhas){
-                    printf("| %d ", tabuleiro[i][j].minasvizinhas);
+                if(tabuleiro[i][j].minasvizinhas==1){
+                    printf("|");
+                    printf(ANSI_COLOR_CYAN " %d " ANSI_COLOR_RESET, tabuleiro[i][j].minasvizinhas);
+                }else if(tabuleiro[i][j].minasvizinhas==2){
+                    printf("|");
+                    printf(ANSI_COLOR_GREEN " %d " ANSI_COLOR_RESET, tabuleiro[i][j].minasvizinhas);
+                }else if(tabuleiro[i][j].minasvizinhas>2){
+                    printf("|");
+                    printf(ANSI_COLOR_PURPLE " %d " ANSI_COLOR_RESET, tabuleiro[i][j].minasvizinhas);
                 }else{
                     printf("|   ");
                 }
@@ -237,11 +248,6 @@ void imprimirTabuleiro(int cont, int difi){
         }
         printf("\n");
     }
-}
-
-int ganhou(int cont){
-    if(abertos==linhas*colunas-cont) return 1;
-    return 0;
 }
 
 void perdeuTabuleiro(int cont, int difi, int x, int y){
@@ -274,7 +280,6 @@ void perdeuTabuleiro(int cont, int difi, int x, int y){
     for(i=1; i<=colunas; i++){
         if(i<=9) printf("   %d", i);
         else printf("  %d", i);
-        if(i==9) printf("");
         if(i==colunas) printf("\n");
     }
     printf("   |");
@@ -300,8 +305,15 @@ void perdeuTabuleiro(int cont, int difi, int x, int y){
                     printf(ANSI_COLOR_RED " * " ANSI_COLOR_RESET);
                 }
             }else if(tabuleiro[i][j].estado){
-                if(tabuleiro[i][j].minasvizinhas){
-                    printf("| %d ", tabuleiro[i][j].minasvizinhas);
+                if(tabuleiro[i][j].minasvizinhas==1){
+                    printf("|");
+                    printf(ANSI_COLOR_CYAN " %d " ANSI_COLOR_RESET, tabuleiro[i][j].minasvizinhas);
+                }else if(tabuleiro[i][j].minasvizinhas==2){
+                    printf("|");
+                    printf(ANSI_COLOR_GREEN " %d " ANSI_COLOR_RESET, tabuleiro[i][j].minasvizinhas);
+                }else if(tabuleiro[i][j].minasvizinhas>2){
+                    printf("|");
+                    printf(ANSI_COLOR_PURPLE " %d " ANSI_COLOR_RESET, tabuleiro[i][j].minasvizinhas);
                 }else{
                     printf("|   ");
                 }
@@ -350,7 +362,6 @@ void ganhouTabuleiro(int difi){
     for(i=1; i<=colunas; i++){
         if(i<=9) printf("   %d", i);
         else printf("  %d", i);
-        if(i==9) printf("");
         if(i==colunas) printf("\n");
     }
     printf("   |");
@@ -371,8 +382,15 @@ void ganhouTabuleiro(int difi){
                 printf("|");
                 printf(ANSI_COLOR_RED " * " ANSI_COLOR_RESET);
             }else if(tabuleiro[i][j].estado){
-                if(tabuleiro[i][j].minasvizinhas){
-                    printf("| %d ", tabuleiro[i][j].minasvizinhas);
+                if(tabuleiro[i][j].minasvizinhas==1){
+                    printf("|");
+                    printf(ANSI_COLOR_CYAN " %d " ANSI_COLOR_RESET, tabuleiro[i][j].minasvizinhas);
+                }else if(tabuleiro[i][j].minasvizinhas==2){
+                    printf("|");
+                    printf(ANSI_COLOR_GREEN " %d " ANSI_COLOR_RESET, tabuleiro[i][j].minasvizinhas);
+                }else if(tabuleiro[i][j].minasvizinhas>2){
+                    printf("|");
+                    printf(ANSI_COLOR_PURPLE " %d " ANSI_COLOR_RESET, tabuleiro[i][j].minasvizinhas);
                 }else{
                     printf("|   ");
                 }
@@ -392,6 +410,11 @@ void ganhouTabuleiro(int difi){
         }
         printf("\n");
     }
+}
+
+int ganhou(int cont){
+    if(abertos==linhas*colunas-cont) return 1;
+    return 0;
 }
 
 void tempo(int x, int y, infopessoas *sla){
@@ -717,7 +740,7 @@ int main(){
 
                         if(!jogada){
                             getchar();
-                            printf("\nTem certeza que deseja voltar ao Menu \"Jogar\"?(S/N): ");
+                            printf("\nTem certeza que deseja voltar ao Menu \"Jogar\"? (S/N): ");
                             scanf("%c", &ctz);
                             getchar();
 
@@ -731,7 +754,7 @@ int main(){
                             else continue;
                         }
 
-                        printf("\nInsira a coordenada \"x y\" da sua jogada, caso queira cancelar a jogada insira a coordenada \"0 0\": ");
+                        printf("\nInsira a linha e a coluna da sua jogada, caso queira cancelar a jogada insira \"0 0\": ");
                     
                         while(!(sa=scanf("%d %d", &x, &y)) || !(valido(x, y))){
                             fflush(stdin);
@@ -740,20 +763,20 @@ int main(){
                                 printf("\n\nCoordenada inválida, a linha deve estar entre 1 e %d, e a coluna deve estar entre 1 e %d!\n", linhas, colunas);
                             }
 
-                            printf("\nInsira a coordenada \"x y\" da sua jogada, caso queira cancelar a jogada insira a coordenada \"0 0\": ");
+                            printf("\nInsira a linha e a coluna da sua jogada, caso queira cancelar a jogada insira \"0 0\": ");
                         }
 
                         if(x==0 && y==0) continue;
 
                         if(jogada==1){
                             if(primeira){
-                                comeco = time(NULL);
 
-                                while(tabuleiro[x][y].mina){
+                                while(tabuleiro[x][y].mina || tabuleiro[x][y].minasvizinhas){
                                     limpaTabuleiro();
                                     iniciaTabuleiro(minas);
                                 }
 
+                                comeco = time(NULL);
                                 primeira=0;
                             }
                             if(tabuleiro[x][y].mina==1){
@@ -771,7 +794,7 @@ int main(){
                                 textoPerdeu();
                                 tempo(fim-comeco, 0, NULL);
                                 getchar();
-                                printf("\nVocê deseja jogar novamente?(S/N): ");
+                                printf("\nVocê deseja jogar novamente? (S/N): ");
                                 scanf("%c", &jogar);
                                 getchar();
 
@@ -798,6 +821,7 @@ int main(){
                                     getc(stdin);
                                 }else{
                                     tabuleiro[x][y].flag=1;
+                                    tabuleiro[x][y].estado=1;
                                     qntFlags--;
                                 }
                             }
@@ -815,6 +839,7 @@ int main(){
                                     getc(stdin);
                                 }else{
                                     tabuleiro[x][y].flag=0;
+                                    tabuleiro[x][y].estado=0;
                                     qntFlags++;
                                 }
                             }
@@ -895,7 +920,36 @@ int main(){
                             }
                             ordenar();
                             salvar();
-                            printf("\n\nVocê deseja jogar novamente?(S/N): ");
+                            switch (dificuldade){
+                            case 1:
+                                for(i=0; i<numPessoas1; i++){
+                                    if(strcmp(pessoas1[i].nome, atual.nome) == 0){
+                                        printf("\nVocê se encontra na %dº posição do ranking de recordes do nível Fácil!", i+1);
+                                        break;
+                                    }
+                                }
+                                break;
+                            
+                            case 2:
+                                for(i=0; i<numPessoas2; i++){
+                                    if(strcmp(pessoas2[i].nome, atual.nome) == 0){
+                                        printf("\nVocê se encontra na %dº posição do ranking de recordes do nível Médio!", i+1);
+                                        break;
+                                    }
+                                }
+
+                            case 3:
+                                for(i=0; i<numPessoas3; i++){
+                                    if(strcmp(pessoas3[i].nome, atual.nome) == 0){
+                                        printf("\nVocê se encontra na %dº posição do ranking de recordes do nível Difícil!", i+1);
+                                        break;
+                                    }
+                                }
+
+                            default:
+                                break;
+                            }
+                            printf("\n\nVocê deseja jogar novamente? (S/N): ");
                             scanf("%c", &jogar);
                             getchar();
 
